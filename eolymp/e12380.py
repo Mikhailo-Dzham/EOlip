@@ -1,40 +1,21 @@
 import sys
-#NMAX = 2*1000_00+3
 
-def solve(array, n):
-    suma = 0
-    first_el = array[0]
-    for el in array:
-        first_num = el[0]
-        for num in el:
+def solve(array): # Тут має бути массив типу ["12", "1", "42"]
+
+    if sum([int(e) for e in array]) % 2 == 0: # Переіпяєм чи массив вже не парний
+        return "YES"
+
+    for el in array: #Якшо непарний, то перевіряєм всі елементи
+        first_num = el[0] # Берем першу цифру числа
+        for num in el: # І перевіряєм чи є в числі цифра з іншою остачею від двійки
             if int(num) % 2 != int(first_num) % 2:
-                print("YES")
-                return
-
-        suma+=int(el[-1])
-    if suma % 2 == 0:
-        print("YES")
-        return
-    print("No")
-    return
+                return "YES" #Така існує то далі перевіряти немає сенсу, цього дость
+                                     # що сказати що ми можемо переробити массив на парний
+    return "NO"
 
 
 if __name__ == "__main__":
-    data = sys.stdin.read().split("\n")
-    t = int(data[0])
+    data = sys.stdin.read().split("\n") #Берем всі рядки одразу і ділимо по ентерах
 
-    for test in range(1,t*2+1, 2):
-        n = data[test]
-        case = data[test+1].split()
-
-        solve(case, n)
-
-
-
-    # ind = 1
-    # array = [0] * NMAX
-    # for _ in range(t):
-    #     n = int(data[ind])
-    #     for i in range(n):
-    #         array[i] = input()
-    #     solve(array, n)
+    for test in data[2::2]: #Так як ми на пітоні то кількість тестів як і кількість
+        print(solve(test.split())) # елементів в массиві нам нідочого
